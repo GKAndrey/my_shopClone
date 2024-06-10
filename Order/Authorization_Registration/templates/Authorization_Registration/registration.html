@@ -1,0 +1,48 @@
+{% extends 'APP_Settings/base.html' %}
+{% load static %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'Authorization_Registration/css/log.css' %}">
+    
+    {% if error %}
+        <script src="{% static 'Authorization_Registration/js/error.js' %}" defer></script>
+    {% endif %}
+{% endblock link %}
+
+
+{% block main %}
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div class="zaglav">
+            <h1>Зареєструйтесь</h1>
+        </div>
+        <div class="centerBlock">
+            <div class="registrSistem">
+                <div class="label">
+                    <p>Логін</p>
+                    <p>Пошта</p>
+                    <p>Номер телефону</p>
+                    <p>Пароль</p>
+                    <p>Повторіть пароль</p>
+                </div>
+                <div class="input">
+                    <input type="text"  name="username" value="{{login}}"/>
+                    <input type="email" name="email" value="{{email}}"/>
+                    <input type="number" name="number" value="{{number}}"/>
+                    <input type="password" name="password" value="{{password}}"/>
+                    <input type="password" name="confirm_password" value="{{confirm_password}}"/>
+                </div>
+            </div>
+        </div>
+        <div class="butn">
+            <button>Підтвердити</button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block error %}
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+        
+{% endblock error %}

@@ -1,0 +1,62 @@
+{% extends 'APP_Settings/base.html' %}
+{% load static %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'Shopping_cart_page/css/cart.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="cart_conteiner">
+        {% if products_cart %}
+            {% for product in products_cart %}
+                <div class="block_cart">
+                    <div class="image">
+                        <img src={{product.obj.img.url}} alt="Product photo">
+                    </div>
+                    <div class="info">
+                        <div class="name">
+                            <p>{{product.obj.name}}</p>
+                        </div>
+                        <div class="price">
+                            <p>{{product.obj.price}}</p>
+                        </div>
+                        <div class="buttons">
+                            <form action="{% url 'product_page{{product.id}}' %}" method="post">
+                                {% csrf_token %}
+                                <input type="text" value="{{product.obj.id}}" style="display: none;" name="ids">
+                                <button type="submit">Дізнатися більше</button>
+                            </form>
+                            <form action="{% url 'delete_product_cart' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Вилучити з кошика</button>
+                                <input type="text" value="{{product.num}}" style="display: none;" name="id_product">
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        {% endif %}
+        <!-- <div class="ender"></div> -->
+    </div>
+    
+{% endblock %}
+
+
+{% block footer %}
+    <footer>
+        <div class="amount">
+            <p>Кількість товару: {{len_prod}}</p>
+        </div>
+        <div class="all_price">
+            <p>Загальна ціна:{{opti_prise}}</p>
+        </div>
+        <div id="buttonConfirm">
+            <form action="#" method="put">
+                {% csrf_token %}
+                <button>Оформити замовлення</button>
+            </form>
+        </div>
+    </footer>
+{% endblock footer %}
+    

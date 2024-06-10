@@ -1,0 +1,43 @@
+{% extends "APP_Settings/base.html" %}
+{% load static %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'Product_page/css/product_page.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="mainDiv">
+
+    <div class="product">
+        <div class="image">
+            <h2>{{product.name}}</h2>
+            <img src="{{product.img.url}}" alt="">
+        </div>
+    
+        <div class="info">
+            <h2>Характеристики:</h2>
+            <p>Параметри екрана: {{product.screen}}</p>
+            <p>Вбудована пам'ять: {{product.memory}}</p>
+            <p>Операційна система: iOS</p>
+            <p>Параметри камери: {{product.camera}}</p>
+            <p>Назва процесора: {{product.cpu}}</p>
+            <p>Матеріал корпуса: {{product.case}}</p>
+            <p>Роз'єми: USB Type-C</p>
+            <p>Гарантія: 12 місяців</p>
+            <p id="price">Ціна: {{product.price}}</p>
+        </div>
+    </div>
+    
+
+    <div id="buttons">
+        <form action="{% url 'add_cart_product' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" value={{product.id}} class="hide" name="ids">
+            <button>Додати у кошик</button>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}

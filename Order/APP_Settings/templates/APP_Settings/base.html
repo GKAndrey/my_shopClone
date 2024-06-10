@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone's Market</title>
+    <link rel="shortcut icon" href="{% static 'APP_Settings/photo/favicon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'APP_Settings/css/base.css' %}" defer>
+    <script src="{% static 'APP_Settings/js/base_js.js' %}" defer></script>
+    {% block link %}
+    
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <div class="relevation">
+            <div class="head">
+                <h1>
+                    <a href="{% url 'main_page' %}">iPhone's Market</a>
+                </h1>
+            </div>
+            <div class="content">
+                {% block header %}
+                {% endblock %}
+            </div>
+
+            <div class="settings">
+                <button class="mainmenubtn">
+                    {% if user.is_authenticated == True %}
+                        <h2>{{ user.username }}</h2>
+                    {% else %}
+                        <img src="{% static 'APP_Settings/photo/menu_icon.png' %}" alt='???'>
+                    {% endif %} 
+                </button>
+                <div class="dropdown-child">
+                    {% if user.is_authenticated == True %}
+                        <a href="{% url 'cart_page' %}">Кошик</a>
+                        <a href="{% url 'contact_page' %}">Контакти</a>
+                        <a href="{% url 'logout' %}">Вийти з акаунту</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">Ввійдіть в акаунт</a>
+                        <a href="{% url 'registrationPage' %}">Зареєструватись</a>
+                        <a href="{% url 'contact_page' %}">Контакти</a>
+                    {% endif %} 
+                </div>
+            </div>
+
+        </div>
+    </header>
+    <div class='background'></div>
+    <main>
+        {% block main %}
+
+        {% endblock %}
+    </main>
+    {% block footer %}
+        
+    {% endblock %}
+
+    <div class="errors">
+        {% block error %}
+        
+        {% endblock %}
+    </div>
+</body>
+</html>
